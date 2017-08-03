@@ -6,7 +6,16 @@ public abstract class Block {
 	int dimY;
 	String color;
 	
-	
+	Block(){
+		this.dimX=1;
+		this.dimY=1;
+		this.color="Black";
+	}
+	Block(int dimX, int dimY, String color){
+		this.dimX=dimX;
+		this.dimY=dimY;
+		this.color=color;
+	}
 	
 	public int getDimX() {
 		return dimX;
