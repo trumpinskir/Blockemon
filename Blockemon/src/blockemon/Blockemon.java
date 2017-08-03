@@ -3,10 +3,25 @@ package blockemon;
 public class Blockemon extends Block{
 	
 	private int HP;
-	private int MaxHP;
+	private int maxHP;
 	private int numAttacks;
-	private int Level;
+	private int level;
 	static int MAX_LEVEL=100;
+	
+	
+	Blockemon(){
+		this.HP=10;
+		this.maxHP=10;
+		this.numAttacks=1;
+		this.level=1;	
+	}
+	Blockemon(int HP, int maxHP, int numAttacks, int level){
+		this.HP=HP;
+		this.maxHP=maxHP;
+		this.numAttacks=numAttacks;
+		this.level=level;
+	}
+	
 	
 	public int getHP() {
 		return HP;
@@ -15,10 +30,10 @@ public class Blockemon extends Block{
 		HP = hP;
 	}
 	public int getMaxHP() {
-		return MaxHP;
+		return maxHP;
 	}
 	public void setMaxHP(int maxHP) {
-		MaxHP = maxHP;
+		this.maxHP = maxHP;
 	}
 	public int getNumAttacks() {
 		return numAttacks;
@@ -27,17 +42,17 @@ public class Blockemon extends Block{
 		this.numAttacks = numAttacks;
 	}
 	public int getLevel() {
-		return Level;
+		return level;
 	}
 	public void setLevel(int level) {
 		if (level<1){
-			this.Level=1;
+			this.level=1;
 		}
 		if(level>=MAX_LEVEL){
-			this.Level=MAX_LEVEL;
+			this.level=MAX_LEVEL;
 		}
 		else{
-			Level = level;
+			this.level = level;
 		}
 	}
 	
@@ -48,11 +63,11 @@ public class Blockemon extends Block{
 	 * @param Up
 	 */
 	public void levelUp(int Up){
-		if (this.Level>=MAX_LEVEL){
-			this.Level=MAX_LEVEL;
+		if (this.level>=MAX_LEVEL){
+			this.level=MAX_LEVEL;
 		}
 		else{
-			this.Level+=Up;
+			this.level+=Up;
 		}
 	}
 	
@@ -65,7 +80,7 @@ public class Blockemon extends Block{
 	 */
 	public void AdjustHP(int Adjust){
 		if (this.HP+Adjust>this.getMaxHP()){
-			this.HP=this.MaxHP; 
+			this.HP=this.maxHP; 
 		}
 		else if(this.HP+Adjust<0){
 			this.HP=0;

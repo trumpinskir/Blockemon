@@ -6,6 +6,16 @@ public class People extends Block{
 	static int MAX_BALLS;
 	static int MAX_BLOCKEMON;
 	
+	People(){
+		this.numBalls=0;
+		this.numBlockemon=0;
+	}
+	
+	People(int numBalls, int numBlockemon){
+		this.numBalls=numBalls;
+		this.numBlockemon=numBlockemon;
+	}
+	
 	public int getNumBlockemon() {
 		return numBlockemon;
 	}
