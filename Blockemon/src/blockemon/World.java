@@ -1,4 +1,4 @@
-package Blocks;
+package blockemon;
 
 public class World extends Block {
 	String color = "5C872D";

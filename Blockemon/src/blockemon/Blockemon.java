@@ -6,6 +6,7 @@ public class Blockemon extends Block{
 	private int maxHP;
 	private int numAttacks;
 	private int level;
+	private String name;
 	static int MAX_LEVEL=100;
 	
 	
@@ -13,13 +14,15 @@ public class Blockemon extends Block{
 		this.HP=10;
 		this.maxHP=10;
 		this.numAttacks=1;
-		this.level=1;	
+		this.level=1;
+		this.name="";
 	}
-	Blockemon(int HP, int maxHP, int numAttacks, int level){
+	Blockemon(int HP, int maxHP, int numAttacks, int level,String name){
 		this.HP=HP;
 		this.maxHP=maxHP;
 		this.numAttacks=numAttacks;
 		this.level=level;
+		this.name=name;
 	}
 	
 	
@@ -54,6 +57,12 @@ public class Blockemon extends Block{
 		else{
 			this.level = level;
 		}
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	/**

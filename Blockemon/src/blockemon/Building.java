@@ -1,4 +1,4 @@
-package Blocks;
+package blockemon;
 public class Building extends Block{
 	String color = "A09885";
 	int dimX;

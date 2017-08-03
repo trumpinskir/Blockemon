@@ -1,4 +1,4 @@
-package Blocks;
+package blockemon;
 public class Shrub extends Block{
 	String color = "76a912"; // plant color
 	int dimX;
