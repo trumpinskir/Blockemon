@@ -15,7 +15,7 @@ public class World extends Block implements Runnable {
 	int [][] limits =new int [1000][1000];
 	ArrayList<Block> location = new ArrayList<Block>(20);
 	PlayableCharacter Blocky = new PlayableCharacter(0,0,30,30,400,400,"Block");
-	
+	Shrub shrubooya = new Shrub(300,700);
 	JFrame frame;
 	Canvas canvas;
 	BufferStrategy bufferStrategy;
@@ -77,8 +77,9 @@ public class World extends Block implements Runnable {
 	
 	 public void Paint(Graphics2D g) {
 		 
-		Color color = new Color(0,0,0);
-		Shrub shrubooya = new Shrub(300,700, g);
+		shrubooya.show(g,shrubooya.getColorR(),shrubooya.getColorG(),shrubooya.getColorB());
+		 Color color = new Color(0,0,0);
+		
 		
 		g.setColor(color);
 	    g.fillRect(Blocky.getxCoordinate(),Blocky.getyCoordinate(), 30, 30);

@@ -5,15 +5,6 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 public class Building extends Block{
-	int colorR;
-	int colorG;
-	int colorB;
-	
-	int xCoordinate;
-	int yCoordinate;
-	
-	int dimX;
-	int dimY;
 	
 	Building(int xCoordinate, int yCoordinate, int dimX, int dimY, int R, int G, int B, Graphics2D g, ArrayList<Block> location){
 		
@@ -36,12 +27,7 @@ public class Building extends Block{
 	}
 	
 	
-	public String getColor() {
-		return color;
-	}
-	public void setColor(String color) {
-		this.color = color;
-	}
+
 	public int getDimX() {
 		return dimX;
 	}
