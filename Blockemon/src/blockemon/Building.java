@@ -8,6 +8,9 @@ public class Building extends Block{
 	int colorG;
 	int colorB;
 	
+	int xCoordinate;
+	int yCoordinate;
+	
 	int dimX;
 	int dimY;
 	
@@ -15,6 +18,16 @@ public class Building extends Block{
 		Color color = new Color(R,G,B);
         g.setColor(color);
         g.fillRect(xCoordinate,yCoordinate, dimX, dimY);
+        
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+        
+        this.dimX = dimX;
+        this.dimY = dimY;
+        
+        this.colorR = R;
+        this.colorG = G;
+        this.colorB = B;
         // call 2D array fill method
 	}
 	
