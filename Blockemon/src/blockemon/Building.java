@@ -2,6 +2,7 @@ package blockemon;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class Building extends Block{
 	int colorR;
@@ -14,7 +15,7 @@ public class Building extends Block{
 	int dimX;
 	int dimY;
 	
-	Building(int xCoordinate, int yCoordinate, int dimX, int dimY, int R, int G, int B, Graphics2D g){
+	Building(int xCoordinate, int yCoordinate, int dimX, int dimY, int R, int G, int B, Graphics2D g, ArrayList<Block> location){
 		
 		Color color = new Color(R,G,B);
         g.setColor(color);
@@ -30,6 +31,8 @@ public class Building extends Block{
         this.colorG = G;
         this.colorB = B;
         // call 2D array fill method
+        location.add((Block)this);
+
 	}
 	
 	

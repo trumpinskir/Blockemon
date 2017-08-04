@@ -73,8 +73,10 @@ public class World extends Block implements Runnable {
 	    g.fillRect(Blocky.getxCoordinate(),Blocky.getyCoordinate(), 30, 30);
 	    
 	    //g.fillRect(700, 400, 30, 30); 
-	    Building building = new Building(700,400,50,100,0,191,255,g); 
-	    location.add((Block)building);
+	    Building building = new Building(700,400,50,100,0,191,255,g,location); 
+	    Building building2 = new Building(100,600,150,200,0,191,255,g,location);
+	    Building building3 = new Building(500,200,250,100,0,191,255,g,location);
+	    
 	    setBoundries();
 	 }
 	 
