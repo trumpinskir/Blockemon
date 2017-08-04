@@ -3,8 +3,8 @@ package blockemon;
 public abstract class People extends Block{
 	private int numBalls;
 	private int numBlockemon;
-	int xCoordinate;
-	int yCoordinate;
+	public int xCoordinate;
+	public int yCoordinate;
 	private String name;
 
 	static int MAX_BALLS;
@@ -62,10 +62,10 @@ public abstract class People extends Block{
 	public void setxCoordinate(int xCoordinate) {
 		this.xCoordinate = xCoordinate;
 	}
-	public int getYCoordinate() {
+	public int getyCoordinate() {
 		return this.yCoordinate;
 	}
-	public void setYCoordinate(int yCoordinate) {
+	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
 	public String getName() {
