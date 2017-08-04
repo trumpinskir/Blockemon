@@ -15,6 +15,7 @@ public class Building extends Block{
 	int dimY;
 	
 	Building(int xCoordinate, int yCoordinate, int dimX, int dimY, int R, int G, int B, Graphics2D g){
+		
 		Color color = new Color(R,G,B);
         g.setColor(color);
         g.fillRect(xCoordinate,yCoordinate, dimX, dimY);
@@ -49,6 +50,26 @@ public class Building extends Block{
 	}
 	public void setDimY(int dimY) {
 		this.dimY = dimY;
+	}
+
+
+	public int getxCoordinate() {
+		return xCoordinate;
+	}
+
+
+	public void setxCoordinate(int xCoordinate) {
+		this.xCoordinate = xCoordinate;
+	}
+
+
+	public int getyCoordinate() {
+		return yCoordinate;
+	}
+
+
+	public void setyCoordinate(int yCoordinate) {
+		this.yCoordinate = yCoordinate;
 	}
 	
 	

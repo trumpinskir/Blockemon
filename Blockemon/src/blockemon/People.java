@@ -6,6 +6,24 @@ public abstract class People extends Block{
 	public int xCoordinate;
 	public int yCoordinate;
 	private String name;
+	int dimX;
+	int dimY;
+
+	public int getDimX() {
+		return dimX;
+	}
+
+	public void setDimX(int dimX) {
+		this.dimX = dimX;
+	}
+
+	public int getDimY() {
+		return dimY;
+	}
+
+	public void setDimY(int dimY) {
+		this.dimY = dimY;
+	}
 
 	static int MAX_BALLS;
 	static int MAX_BLOCKEMON;
@@ -19,9 +37,11 @@ public abstract class People extends Block{
 		this.name="";
 	}
 	
-	People(int numBalls, int numBlockemon, int xCoordinate, int yCoordinate,String name){
+	People(int numBalls, int numBlockemon,int dimX, int dimY, int xCoordinate, int yCoordinate,String name){
 		this.numBalls=numBalls;
 		this.numBlockemon=numBlockemon;
+		this.dimX=dimX;
+		this.dimY=dimY;
 		this.xCoordinate=xCoordinate;
 		this.yCoordinate=yCoordinate;
 		this.name=name;
