@@ -1,5 +1,6 @@
 package blockemon;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -9,7 +10,6 @@ import javax.swing.*;
 
 
 public class World extends Block implements Runnable {
-	String color = "5C872D";
 	int dimX = 1000;
 	int dimY = 1000;
 	int [][] limits =new int [1000][1000];
@@ -22,10 +22,26 @@ public class World extends Block implements Runnable {
 	boolean running = true;
 	boolean moving = true;
 	    
-	    
-	    
+	
 	public World() {
-	    frame = new JFrame("Blockemon");
+	    initializeCanvas();
+	}
+	
+	
+	public void run() {
+	    while (running = true) {
+	    	Paint();
+	        try {
+	        	Thread.sleep(20);
+	        } 
+	        catch (InterruptedException e) {
+	        }
+	    }
+	}
+	
+	
+	public void initializeCanvas(){
+		frame = new JFrame("Blockemon");
 	    JPanel panel = (JPanel) frame.getContentPane();
 	    panel.setPreferredSize(new Dimension(dimX, dimY));
 	    panel.setLayout(null);
@@ -45,40 +61,30 @@ public class World extends Block implements Runnable {
 	    frame.setVisible(true);
 	    canvas.createBufferStrategy(2);
 	    bufferStrategy = canvas.getBufferStrategy();
-	    canvas.requestFocus();	        
-	}
-	public void run() {
-	    while (running = true) {
-	    	Paint();
-	        try {
-	        	Thread.sleep(5);
-	        } 
-	        catch (InterruptedException e) {
-	        }
-	    }
-	}
-	public static void main(String[] args) {
-	    World ex = new World();
-	    new Thread(ex).start();	    
+	    //bufferStrategy = canvas.getBufferStrategy();
+	    canvas.requestFocus();
 	}
 	    
+	
 	public void Paint() {
-	    Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
-	    g.clearRect(0, 0, 1000, 1000);
+		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
+	   g.clearRect(0,0,1000,1000);
 	    Paint(g);
 	    bufferStrategy.show();
+	    
 	}
 
+	
 	 public void Paint(Graphics2D g) {
+		 
+		Color color = new Color(0,0,0);
+		Shrub shrubooya = new Shrub(300,700, g);
+		
+		g.setColor(color);
 	    g.fillRect(Blocky.getxCoordinate(),Blocky.getyCoordinate(), 30, 30);
-	    
-	    //g.fillRect(700, 400, 30, 30); 
-	    Building building = new Building(700,400,50,100,0,191,255,g,location); 
-	    Building building2 = new Building(100,600,150,200,0,191,255,g,location);
-	    Building building3 = new Building(500,200,250,100,0,191,255,g,location);
-	    
 	    setBoundries();
 	 }
+	 
 	 
 	 public void setBoundries(){
 		 for (int index=0;index<location.size();index++){
@@ -96,6 +102,8 @@ public class World extends Block implements Runnable {
 			 }
 		 }
 	 }
+	 
+	 
 	 
 	 public void moveIt(KeyEvent evt) {
 		 switch (evt.getKeyCode()) {
@@ -149,7 +157,10 @@ public class World extends Block implements Runnable {
 			break;
 		}
 	}
-	    
-}
+		
+	 }
+	
+	
+
 	
 	
