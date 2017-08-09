@@ -1,51 +1,46 @@
 package blockemon;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.util.Random;
-
 public class Shrub extends Block{
+	String color = "76a912"; // plant color
+	int dimX;
+	int dimY;
+	int defaultSize =5;
 	
-	
-	Shrub(int xCoordinate, int yCoordinate, int dimX, int dimY, int R, int G, int B){
-        
-        this.setxCoordinate(xCoordinate);
-        this.setyCoordinate(yCoordinate);
-        
-        this.setDimX(dimX);
-        this.setDimY(dimY);
-        
-        this.colorR = R;
-        this.colorG = G;
-        this.colorB = B;
-	}
-	
-
-	
-	Shrub(int xCoordinate, int yCoordinate){
-		
-		int R, G, B;
-		R = 34;
-		G = 139;
-		B = 34;  
-		
-        
-        
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
-        
-        this.dimX = defaultSize;
-        this.dimY = defaultSize;
-        
-        this.colorR = R;
-        this.colorG = G;
-        this.colorB = B;
-        // call 2D array fill method
+	Shrub(){
+		this.dimX = defaultSize;
+		this.dimY = defaultSize;
 	}
 
-	
-	
-	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public int getDimX() {
+		return dimX;
+	}
+
+	public void setDimX(int dimX) {
+		this.dimX = dimX;
+	}
+
+	public int getDimY() {
+		return dimY;
+	}
+
+	public void setDimY(int dimY) {
+		this.dimY = dimY;
+	}
+
+	public int getDefaultSize() {
+		return defaultSize;
+	}
+
+	public void setDefaultSize(int defaultSize) {
+		this.defaultSize = defaultSize;
+	}
 	
 	
 	

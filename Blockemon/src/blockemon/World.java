@@ -1,6 +1,5 @@
 package blockemon;
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -10,38 +9,25 @@ import javax.swing.*;
 
 
 public class World extends Block implements Runnable {
+	String color = "5C872D";
 	int dimX = 1000;
 	int dimY = 1000;
 	int [][] limits =new int [1000][1000];
 	ArrayList<Block> location = new ArrayList<Block>(20);
 	PlayableCharacter Blocky = new PlayableCharacter(0,0,30,30,400,400,"Block");
-	Shrub shrubooya = new Shrub(300,700);
+	AICharacter AI = new AICharacter(0,0,30,30,300,300,"AI",location);
+	AICharacter AI2 = new AICharacter(0,0,30,30,100,100,"AI",location);
+	
 	JFrame frame;
 	Canvas canvas;
 	BufferStrategy bufferStrategy;
 	boolean running = true;
 	boolean moving = true;
 	    
-	
+	    
+	    
 	public World() {
-	    initializeCanvas();
-	}
-	
-	
-	public void run() {
-	    while (running = true) {
-	    	Paint();
-	        try {
-	        	Thread.sleep(20);
-	        } 
-	        catch (InterruptedException e) {
-	        }
-	    }
-	}
-	
-	
-	public void initializeCanvas(){
-		frame = new JFrame("Blockemon");
+	    frame = new JFrame("Blockemon");
 	    JPanel panel = (JPanel) frame.getContentPane();
 	    panel.setPreferredSize(new Dimension(dimX, dimY));
 	    panel.setLayout(null);
@@ -61,31 +47,43 @@ public class World extends Block implements Runnable {
 	    frame.setVisible(true);
 	    canvas.createBufferStrategy(2);
 	    bufferStrategy = canvas.getBufferStrategy();
-	    //bufferStrategy = canvas.getBufferStrategy();
-	    canvas.requestFocus();
+	    canvas.requestFocus();	        
+	}
+	public void run() {
+	    while (running = true) {
+	    	Paint();
+	        try {
+	        	Thread.sleep(5);
+	        } 
+	        catch (InterruptedException e) {
+	        }
+	    }
+	}
+	public static void main(String[] args) {
+	    World ex = new World();
+	    new Thread(ex).start();	    
 	}
 	    
-	
 	public void Paint() {
-		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
-	   g.clearRect(0,0,1000,1000);
+	    Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
+	    g.clearRect(0, 0, 1000, 1000);
 	    Paint(g);
 	    bufferStrategy.show();
-	    
 	}
 
-	
 	 public void Paint(Graphics2D g) {
-		 
-		shrubooya.show(g,shrubooya.getColorR(),shrubooya.getColorG(),shrubooya.getColorB());
-		 Color color = new Color(0,0,0);
-		
-		
-		g.setColor(color);
 	    g.fillRect(Blocky.getxCoordinate(),Blocky.getyCoordinate(), 30, 30);
+	    g.fillRect(AI.getxCoordinate(), AI.getyCoordinate(), 30, 30);
+	    g.fillRect(AI2.getxCoordinate(), AI2.getyCoordinate(), 30, 30);
+	    
+	    AI.moveUpDown();
+	    AI2.moveLeftRight();
+	    Building building = new Building(700,400,50,100,0,191,255,g,location); 
+	    Building building2 = new Building(100,600,150,200,0,191,255,g,location);
+	    Building building3 = new Building(500,200,250,100,0,191,255,g,location);
+	    
 	    setBoundries();
 	 }
-	 
 	 
 	 public void setBoundries(){
 		 for (int index=0;index<location.size();index++){
@@ -104,64 +102,76 @@ public class World extends Block implements Runnable {
 		 }
 	 }
 	 
-	 
-	 
 	 public void moveIt(KeyEvent evt) {
 		 switch (evt.getKeyCode()) {
-		 case KeyEvent.VK_DOWN:
-			 if ( Blocky.getyCoordinate()> 970) {
-				Blocky.yCoordinate = 970;
-			} else {
-				if (limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()+5]==1){
-					Blocky.yCoordinate=Blocky.getyCoordinate();
-				}
-				else{
-					Blocky.yCoordinate += 5;
-				}
-			}
-			break;
-		case KeyEvent.VK_UP:
-			if (Blocky.getyCoordinate() < 0) {
-				Blocky.yCoordinate = 0;
-			} else {
-				if (limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()-5]==1){
-					Blocky.yCoordinate=Blocky.getyCoordinate();
-				}
-				else{
-					Blocky.yCoordinate -= 5;
-				}
-			}
-			break;
-		case KeyEvent.VK_LEFT:
-			if (Blocky.getxCoordinate() < 0) {
-				Blocky.xCoordinate = 0;
-			} else {
-				if (limits[Blocky.getxCoordinate()-5][Blocky.getyCoordinate()]==1){
-					Blocky.yCoordinate=Blocky.getyCoordinate();
-				}
-				else{
-					Blocky.xCoordinate -= 5;
-				}
-			}
-			break;
-		case KeyEvent.VK_RIGHT:
-			if (Blocky.getxCoordinate() > 970) {
-				Blocky.xCoordinate = 970;
-			} else {
-				if (limits[Blocky.getxCoordinate()+5][Blocky.getyCoordinate()]==1){
-					Blocky.yCoordinate=Blocky.getyCoordinate();
-				}
-				else{
-					Blocky.xCoordinate += 5;
-				}
-			}
-			break;
-		}
-	}
-		
-	 }
-	
-	
-
+		 	case KeyEvent.VK_DOWN:
+		 		if ( Blocky.getyCoordinate()> 970) {
+		 			Blocky.yCoordinate = 970;
+		 		}
+		 		else {
+		 			if (limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()+5]==1){
+		 				Blocky.yCoordinate=Blocky.getyCoordinate();
+		 			}
+		 			else{
+		 				Blocky.yCoordinate += 5;
+		 			}
+		 		}
+		 		break;
+		 	case KeyEvent.VK_UP:
+		 		if (Blocky.getyCoordinate() < 0) {
+		 			Blocky.yCoordinate = 0;
+		 		}
+		 		else {
+		 			if (limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()-5]==1){
+		 				Blocky.yCoordinate=Blocky.getyCoordinate();
+		 			}
+		 			else{
+		 				Blocky.yCoordinate -= 5;
+		 			}
+		 		}
+		 		break;
+		 	case KeyEvent.VK_LEFT:
+		 		if (Blocky.getxCoordinate() < 0) {
+		 			Blocky.xCoordinate = 0;
+		 		}
+		 		else {
+		 			if (limits[Blocky.getxCoordinate()-5][Blocky.getyCoordinate()]==1){
+		 				Blocky.yCoordinate=Blocky.getyCoordinate();
+		 			}
+		 			else{
+		 				Blocky.xCoordinate -= 5;
+		 			}
+		 		}
+		 		break;
+		 	case KeyEvent.VK_RIGHT:
+		 		if (Blocky.getxCoordinate() > 970) {
+		 			Blocky.xCoordinate = 970;
+		 		}
+		 		else {
+		 			if (limits[Blocky.getxCoordinate()+5][Blocky.getyCoordinate()]==1){
+		 				Blocky.yCoordinate=Blocky.getyCoordinate();
+		 			}
+		 			else{
+		 				Blocky.xCoordinate += 5;
+		 			}
+		 		}
+		 		break;
+		 	case KeyEvent.VK_A:
+		 		if(limits[Blocky.getxCoordinate()+5][Blocky.getyCoordinate()]==1){	
+		 			JOptionPane.showMessageDialog(frame, "Battle!");
+		 		}
+		 		if(limits[Blocky.getxCoordinate()-5][Blocky.getyCoordinate()]==1){	
+		 			JOptionPane.showMessageDialog(frame, "Battle!");
+		 		}
+		 		if(limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()+5]==1){	
+		 			JOptionPane.showMessageDialog(frame, "Battle!");
+		 		}
+		 		if(limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()-5]==1){	
+		 			JOptionPane.showMessageDialog(frame, "Battle!");
+		 		}
+		 		break;
+		 }
+	}	    
+}
 	
 	
