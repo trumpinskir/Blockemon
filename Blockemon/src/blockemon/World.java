@@ -18,6 +18,10 @@ public class World extends Block implements Runnable {
 	AICharacter AI = new AICharacter(0,0,30,30,300,300,"AI",location);
 	AICharacter AI2 = new AICharacter(0,0,30,30,100,100,"AI",location);
 	
+	private int velX;
+	private int velY;
+	private int speed=5;
+	
 	JFrame frame;
 	Canvas canvas;
 	BufferStrategy bufferStrategy;
@@ -40,6 +44,18 @@ public class World extends Block implements Runnable {
 	        public void keyPressed(KeyEvent evt) {
 	    		moveIt(evt);
 	        }
+	    	@Override
+	    	public void keyReleased(KeyEvent evt){
+	    		if((evt.getKeyCode() != KeyEvent.VK_UP || evt.getKeyCode() != KeyEvent.VK_DOWN) &&
+	    					!(evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyCode() == KeyEvent.VK_RIGHT)){
+		    		velY = 0;
+	    		}
+	    		if((evt.getKeyCode() != KeyEvent.VK_LEFT || evt.getKeyCode() != KeyEvent.VK_RIGHT) &&
+	    					!(evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN)){
+		    		velX = 0;
+	    		}
+	    		
+	    	}
 	    });
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.pack();
@@ -53,7 +69,7 @@ public class World extends Block implements Runnable {
 	    while (running = true) {
 	    	Paint();
 	        try {
-	        	Thread.sleep(5);
+	        	Thread.sleep(25);
 	        } 
 	        catch (InterruptedException e) {
 	        }
@@ -72,6 +88,8 @@ public class World extends Block implements Runnable {
 	}
 
 	 public void Paint(Graphics2D g) {
+		Blocky.setxCoordinate(Blocky.getxCoordinate()+velX);
+		Blocky.setyCoordinate(Blocky.getyCoordinate()+velY);
 	    g.fillRect(Blocky.getxCoordinate(),Blocky.getyCoordinate(), 30, 30);
 	    g.fillRect(AI.getxCoordinate(), AI.getyCoordinate(), 30, 30);
 	    g.fillRect(AI2.getxCoordinate(), AI2.getyCoordinate(), 30, 30);
@@ -83,6 +101,7 @@ public class World extends Block implements Runnable {
 	    Building building3 = new Building(500,200,250,100,0,191,255,g,location);
 	    
 	    setBoundries();
+	    manageBoundaries();
 	 }
 	 
 	 public void setBoundries(){
@@ -102,57 +121,124 @@ public class World extends Block implements Runnable {
 		 }
 	 }
 	 
+	 public void manageBoundaries(){
+		 if ( Blocky.getyCoordinate()> 970) {
+	 			Blocky.yCoordinate = 970;
+	 			velX =0;
+	 			velY =0;
+	 		}
+		 if (Blocky.getyCoordinate() < 0) {
+	 			Blocky.yCoordinate = 0;
+	 			velX =0;
+	 			velY =0;
+	 		}
+		 if (Blocky.getxCoordinate() < 0) {
+	 			Blocky.xCoordinate = 0;
+	 			velX =0;
+	 			velY =0;
+	 			speed =0;
+	 		}
+		 if (Blocky.getxCoordinate() > 970) {
+	 			Blocky.xCoordinate = 970;
+	 			velX =0;
+	 			velY =0;
+	 		}
+		 if (limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()+5]==1){
+				Blocky.yCoordinate=Blocky.getyCoordinate();
+				velX =0;
+	 			velY =0;
+			}
+		 if (limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()-5]==1){
+				Blocky.yCoordinate=Blocky.getyCoordinate();
+				velX =0;
+	 			velY =0;
+			}
+		 if (limits[Blocky.getxCoordinate()-5][Blocky.getyCoordinate()]==1){
+				Blocky.yCoordinate=Blocky.getyCoordinate();
+				velX =0;
+	 			velY =0;
+			}
+		 if (limits[Blocky.getxCoordinate()+5][Blocky.getyCoordinate()]==1){
+				Blocky.yCoordinate=Blocky.getyCoordinate();
+				velX =0;
+	 			velY =0;
+			}
+	 }
+	 
+	 
 	 public void moveIt(KeyEvent evt) {
+		 
 		 switch (evt.getKeyCode()) {
 		 	case KeyEvent.VK_DOWN:
+		 		
 		 		if ( Blocky.getyCoordinate()> 970) {
 		 			Blocky.yCoordinate = 970;
+		 			velX =0;
+		 			velY =0;
 		 		}
 		 		else {
 		 			if (limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()+5]==1){
 		 				Blocky.yCoordinate=Blocky.getyCoordinate();
+		 				velX =0;
+			 			velY =0;
 		 			}
 		 			else{
-		 				Blocky.yCoordinate += 5;
+		 				velX = 0;
+		 				velY = speed;
 		 			}
 		 		}
 		 		break;
 		 	case KeyEvent.VK_UP:
 		 		if (Blocky.getyCoordinate() < 0) {
 		 			Blocky.yCoordinate = 0;
+		 			velX =0;
+		 			velY =0;
 		 		}
 		 		else {
 		 			if (limits[Blocky.getxCoordinate()][Blocky.getyCoordinate()-5]==1){
 		 				Blocky.yCoordinate=Blocky.getyCoordinate();
+		 				velX =0;
+			 			velY =0;
 		 			}
 		 			else{
-		 				Blocky.yCoordinate -= 5;
+		 				velX = 0;
+		 				velY = -speed;
 		 			}
 		 		}
 		 		break;
 		 	case KeyEvent.VK_LEFT:
 		 		if (Blocky.getxCoordinate() < 0) {
 		 			Blocky.xCoordinate = 0;
+		 			velX =0;
+		 			velY =0;
 		 		}
 		 		else {
 		 			if (limits[Blocky.getxCoordinate()-5][Blocky.getyCoordinate()]==1){
 		 				Blocky.yCoordinate=Blocky.getyCoordinate();
+		 				velX =0;
+			 			velY =0;
 		 			}
 		 			else{
-		 				Blocky.xCoordinate -= 5;
+		 				velX = -speed;
+		 				velY = 0;
 		 			}
 		 		}
 		 		break;
 		 	case KeyEvent.VK_RIGHT:
 		 		if (Blocky.getxCoordinate() > 970) {
 		 			Blocky.xCoordinate = 970;
+		 			velX =0;
+		 			velY =0;
 		 		}
 		 		else {
 		 			if (limits[Blocky.getxCoordinate()+5][Blocky.getyCoordinate()]==1){
 		 				Blocky.yCoordinate=Blocky.getyCoordinate();
+		 				velX =0;
+			 			velY =0;
 		 			}
 		 			else{
-		 				Blocky.xCoordinate += 5;
+		 				velX = speed;
+		 				velY = 0;
 		 			}
 		 		}
 		 		break;
@@ -170,7 +256,27 @@ public class World extends Block implements Runnable {
 		 			JOptionPane.showMessageDialog(frame, "Battle!");
 		 		}
 		 		break;
+		 	
+		 	
 		 }
+	}
+	public PlayableCharacter getBlocky() {
+		return Blocky;
+	}
+	public void setBlocky(PlayableCharacter blocky) {
+		Blocky = blocky;
+	}
+	public int getVelX() {
+		return velX;
+	}
+	public void setVelX(int velX) {
+		this.velX = velX;
+	}
+	public int getVelY() {
+		return velY;
+	}
+	public void setVelY(int velY) {
+		this.velY = velY;
 	}	    
 }
 	
